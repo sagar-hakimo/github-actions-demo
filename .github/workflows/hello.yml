@@ -1,20 +1,18 @@
-name: Hello with Variables
+name: Matrix Example
 
 on:
   push:
     branches: [ main ]
 
 jobs:
-  greet:
+  greet-matrix:
     runs-on: ubuntu-latest
 
-    env:
-      NAME: Sagar
-      EMOJI: "🔥"
+    strategy:
+      matrix:
+        name: [Alice, Bob, Charlie]
+        emoji: ["🎉", "🚀", "🔥"]
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
-
-    - name: Use variables
-      run: echo "Hello, $NAME $EMOJI! Welcome to GitHub Actions"
+    - name: Say hi to ${{ matrix.name }}
+      run: echo "Hello, ${{ matrix.name }}! ${{ matrix.emoji }}"
